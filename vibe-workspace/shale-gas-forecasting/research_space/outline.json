@@ -1,0 +1,24 @@
+{
+  "task": "复现论文并对比",
+  "steps": [
+    "读论文与数据",
+    "写复现脚本(OLS,标准库)",
+    "运行并产出 results/fig",
+    "与论文对比",
+    "写报告"
+  ],
+  "features": [
+    "lateral_length_m",
+    "prop_mass",
+    "stages"
+  ],
+  "target": "first_year_production",
+  "paper_claims": {
+    "r2": 0.87,
+    "importance_rank": [
+      "prop_mass",
+      "lateral length",
+      "stages"
+    ]
+  }
+}

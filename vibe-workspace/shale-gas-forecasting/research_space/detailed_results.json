@@ -1,0 +1,15 @@
+{
+  "model": "OLS(standardized)",
+  "n": 40,
+  "r2": 0.8965,
+  "importance": {
+    "lateral_length_m": 0.285,
+    "proppant_tons": 0.577,
+    "stages": 0.138
+  },
+  "importance_rank": [
+    "proppant_tons",
+    "lateral_length_m",
+    "stages"
+  ]
+}

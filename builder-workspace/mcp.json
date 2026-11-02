@@ -1,0 +1,39 @@
+{
+  "servers": [
+    {
+      "id": "gis-tools",
+      "name": "GIS基础工具",
+      "owner": "geogpt",
+      "official": true,
+      "category": "GIS工具",
+      "transport": "stdio",
+      "command": "node ./mcp-geo-tools.js",
+      "timeout": 60,
+      "desc": "由GeoGPT提供的GIS基础工具,可针对shapefile、geojson和tiff类型的数据进行基础数据分析与空间计算。"
+    },
+    {
+      "id": "web-search",
+      "name": "GeoGPT联网搜索",
+      "owner": "geogpt",
+      "official": true,
+      "category": "搜索工具",
+      "transport": "stdio",
+      "command": "node ./mcp-geo-tools.js",
+      "timeout": 60,
+      "desc": "由GeoGPT提供的网络搜索工具,能帮您快速从互联网上查找并获取您需要的信息。"
+    },
+    {
+      "id": "firecrawl",
+      "name": "FireCrawl",
+      "owner": "geogpt",
+      "official": false,
+      "category": "数据工具",
+      "transport": "http",
+      "endpoint": "https://mcp.firecrawl.dev/v1",
+      "protocol": "StreamableHttp",
+      "requiresKey": "FIRECRAWL_API_KEY",
+      "apiKey": null,
+      "desc": "智能网络爬虫与数据抓取服务。支持JS渲染、批量处理及内容智能过滤。"
+    }
+  ]
+}

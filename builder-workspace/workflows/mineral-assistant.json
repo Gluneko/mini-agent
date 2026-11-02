@@ -1,0 +1,87 @@
+{
+  "id": "mineral-assistant",
+  "name": "矿产分析预测助手",
+  "type": "Workflow",
+  "status": "published",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "next": "init"
+    },
+    {
+      "id": "init",
+      "type": "assign",
+      "label": "图层服务初始化",
+      "set": {
+        "layer_service": "http://gis.local/layers",
+        "url": "http://47.238.133.241/v1.0",
+        "extent": "113,22,115,24"
+      },
+      "next": "calc"
+    },
+    {
+      "id": "calc",
+      "type": "code",
+      "label": "代码执行-计算TOKEN有效期",
+      "code": "const ttl = vars.token_expires_at ? vars.token_expires_at - Date.now() : -1; return { result: ttl > 0 ? 1 : 0 };",
+      "next": "check"
+    },
+    {
+      "id": "check",
+      "type": "condition",
+      "label": "判断当前TOKEN是否有效",
+      "expr": "vars.result === 1",
+      "branches": {
+        "IF": "stamp",
+        "ELSE": "login"
+      }
+    },
+    {
+      "id": "login",
+      "type": "http",
+      "label": "POST /api/user/login",
+      "method": "POST",
+      "url": "{{url}}/api/user/login",
+      "retry": 3,
+      "mockFailTimes": 2,
+      "set": {
+        "token": "tok_7f3a",
+        "token_expires_at": "{{now+3600}}"
+      },
+      "next": "stamp"
+    },
+    {
+      "id": "stamp",
+      "type": "assign",
+      "label": "寄存当前时间戳",
+      "set": {
+        "keytime": "{{now}}"
+      },
+      "next": "lang"
+    },
+    {
+      "id": "lang",
+      "type": "code",
+      "label": "判断提问语言",
+      "code": "return { lang: /[\\u4e00-\\u9fa5]/.test(vars.question) ? \"zh\" : \"en\" };",
+      "next": "agent"
+    },
+    {
+      "id": "agent",
+      "type": "agent",
+      "label": "找矿工具智能体对话",
+      "strategy": "FunctionCalling",
+      "model": "Qwen3-32B",
+      "mcp": [
+        "gis-tools"
+      ],
+      "input": "{{question}}",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

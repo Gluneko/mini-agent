@@ -1,0 +1,19 @@
+{
+  "name": "mini-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Six minimal, zero-dependency Agent kernels: ReAct loop, plan-confirm-execute, long-horizon research with checkpoints, intent router, coding-agent harness, agent builder with a real MCP client/server.",
+  "type": "commonjs",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "react": "node agent.js --mock \"帮我算 (37*89+12),再告诉我现在的时间\"",
+    "map": "node map-agent.js --mock --yes",
+    "research": "node research-agent.js --mock --fast",
+    "research:resume": "node research-agent.js --mock --fast --stop-after 2 && node research-agent.js --mock --fast --resume",
+    "router": "node chat-router.js --mock",
+    "vibe": "node vibe-agent.js --mock",
+    "mcp": "node agent-builder.js mcp connect gis-tools",
+    "workflow": "node agent-builder.js workflow run mineral-assistant --mock"
+  },
+  "license": "MIT"
+}

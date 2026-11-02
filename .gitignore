@@ -1,0 +1,5 @@
+node_modules
+.research-state.json
+report-*.md
+*.log
+.DS_Store
